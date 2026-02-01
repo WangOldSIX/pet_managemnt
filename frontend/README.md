@@ -1,16 +1,92 @@
-# React + Vite
+# 宠物管理系统前端
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+基于 Vue 3 + Vite + Element Plus 的宠物管理系统前端应用
 
-Currently, two official plugins are available:
+## 技术栈
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Vue 3 - 渐进式 JavaScript 框架
+- Vite - 下一代前端构建工具
+- Element Plus - Vue 3 组件库
+- Pinia - Vue 状态管理
+- Vue Router - Vue 路由
+- Axios - HTTP 客户端
 
-## React Compiler
+## 功能模块
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 用户认证（登录/登出）
+- 仪表盘（数据统计）
+- 宠物管理
+- 用户管理
+- 服务管理
+- 订单管理
+- 寄养管理
+- 健康记录
 
-## Expanding the ESLint configuration
+## 开发指南
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 安装依赖
+
+```bash
+npm install
+```
+
+### 启动开发服务器
+
+```bash
+npm run dev
+```
+
+访问 http://localhost:5173
+
+### 构建生产版本
+
+```bash
+npm run build
+```
+
+### 预览生产构建
+
+```bash
+npm run preview
+```
+
+## 项目结构
+
+```
+frontend/
+├── public/           # 静态资源
+├── src/
+│   ├── api/         # API 接口
+│   ├── assets/      # 资源文件
+│   ├── components/  # 公共组件
+│   ├── layout/      # 布局组件
+│   ├── router/      # 路由配置
+│   ├── stores/      # 状态管理
+│   ├── utils/       # 工具函数
+│   ├── views/       # 页面组件
+│   ├── App.vue      # 根组件
+│   └── main.js      # 入口文件
+├── index.html       # HTML 模板
+├── package.json     # 项目配置
+└── vite.config.js   # Vite 配置
+```
+
+## API 配置
+
+后端 API 地址配置在 `vite.config.js` 中：
+
+```javascript
+server: {
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8000',
+      changeOrigin: true
+    }
+  }
+}
+```
+
+## 环境要求
+
+- Node.js >= 16.0.0
+- npm >= 8.0.0
