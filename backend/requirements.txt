@@ -2,24 +2,24 @@
 # Python 3.9+
 
 # FastAPI核心框架
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
+fastapi
+uvicorn[standard]
 
 # 数据库相关
-sqlalchemy==2.0.23
-pymysql==1.1.0
-cryptography==41.0.7
-alembic==1.13.0
+sqlalchemy
+pymysql
+cryptography
+alembic
 
 # 数据验证
-pydantic==2.5.0
-pydantic-settings==2.1.0
-email-validator==2.1.0
+pydantic
+pydantic-settings
+email-validator
 
 # 认证和安全
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-python-multipart==0.0.6
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
 
 # 环境变量
-python-dotenv==1.0.0
+python-dotenv

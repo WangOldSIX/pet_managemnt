@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.security import decode_access_token
 from app.db.models import User
-from typing import Optional
+from typing import Optional, List
 
 # HTTP Bearer Token 认证方案
 security = HTTPBearer()
