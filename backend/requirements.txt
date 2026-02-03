@@ -23,3 +23,8 @@ python-multipart
 
 # 环境变量
 python-dotenv
+
+# 测试框架
+pytest
+pytest-asyncio
+requests
