@@ -101,6 +101,16 @@ class UserLogin(BaseSchema):
     password: str = Field(..., description="密码")
 
 
+class UserRegister(BaseSchema):
+    """用户注册请求模型"""
+    username: str = Field(..., min_length=3, max_length=50, description="用户名")
+    password: str = Field(..., min_length=6, max_length=100, description="密码")
+    confirm_password: str = Field(..., min_length=6, max_length=100, description="确认密码")
+    email: Optional[EmailStr] = Field(None, description="邮箱")
+    phone: Optional[str] = Field(None, max_length=20, description="手机号")
+    real_name: Optional[str] = Field(None, max_length=50, description="真实姓名")
+
+
 class TokenResponse(BaseSchema):
     """登录响应模型，包含Token和用户信息"""
     access_token: str = Field(..., description="访问令牌")

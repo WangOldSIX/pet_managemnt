@@ -10,11 +10,60 @@ from app.core.database import get_db
 from app.core.security import create_access_token, timedelta
 from app.core.deps import get_current_active_user
 from app.core.response import ApiResponse
-from app.schemas import UserLogin, UserResponse, TokenResponse
+from app.schemas import UserLogin, UserRegister, UserResponse, TokenResponse
 from app.service import UserService
 
 # 创建路由器
 router = APIRouter()
+
+
+@router.post("/register", response_model=ApiResponse[UserResponse], summary="用户注册")
+async def register(
+    user_data: UserRegister,
+    db: Session = Depends(get_db)
+):
+    """
+    用户注册接口
+    
+    公开接口，允许新用户注册账号。默认注册为宠物主人角色。
+    
+    Args:
+        user_data: 注册信息（用户名、密码、确认密码等）
+        db: 数据库会话
+        
+    Returns:
+        ApiResponse[UserResponse]: 注册成功的用户信息
+        
+    Raises:
+        400: 两次密码不一致、用户名已存在
+    """
+    # 验证两次密码是否一致
+    if user_data.password != user_data.confirm_password:
+        return ApiResponse[UserResponse](code=400, msg="两次密码不一致", data=None)
+    
+    # 构造 UserCreate 对象（去掉确认密码字段）
+    from app.schemas import UserCreate, UserRole
+    user_create = UserCreate(
+        username=user_data.username,
+        password=user_data.password,
+        email=user_data.email,
+        phone=user_data.phone,
+        real_name=user_data.real_name,
+        role=UserRole.owner  # 默认注册为宠物主人
+    )
+    
+    try:
+        # 调用服务层进行注册
+        new_user = UserService.register(db, user_create)
+        return ApiResponse[UserResponse](
+            data=UserResponse.model_validate(new_user)
+        )
+    except Exception as e:
+        # 处理用户名已存在的异常
+        error_msg = str(e)
+        if "用户名已存在" in error_msg or "exists" in error_msg.lower():
+            return ApiResponse[UserResponse](code=400, msg="用户名已存在", data=None)
+        return ApiResponse[UserResponse](code=500, msg="注册失败，请稍后重试", data=None)
 
 
 @router.post("/login", response_model=ApiResponse[TokenResponse], summary="用户登录")
