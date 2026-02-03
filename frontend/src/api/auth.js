@@ -8,6 +8,14 @@ export const login = (data) => {
   })
 }
 
+export const register = (data) => {
+  return request({
+    url: '/auth/register',
+    method: 'post',
+    data
+  })
+}
+
 export const getCurrentUser = () => {
   return request({
     url: '/auth/me',
